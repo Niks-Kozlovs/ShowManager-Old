@@ -1,0 +1,26 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: frontend.dockerfile
+    ports:
+      - "3000:3000"
+
+  backend:
+    depends_on:
+      - db
+    build:
+      context: ./
+      dockerfile: backend.dockerfile
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: showmanager
+    ports:
+      - "3306:3306"
