@@ -4,7 +4,7 @@ import './HomePage.style.scss';
 class HomePage extends Component {
     render() {
         return (
-            <div>Hello world!</div>
+            <div>Hello bbb world!</div>
         );
     }
 }

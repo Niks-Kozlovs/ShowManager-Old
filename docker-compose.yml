@@ -1,18 +1,21 @@
 version: '3'
 services:
   frontend:
-    build:
-      context: ./
-      dockerfile: frontend.dockerfile
+    build: ./frontend
+    expose:
+      - 3000
     ports:
-      - "3000:3000"
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+      - ./frontend/public:/usr/src/app/public
+    links:
+      - server
 
-  backend:
+  server:
     depends_on:
       - db
-    build:
-      context: ./
-      dockerfile: backend.dockerfile
+    build: ./server
     ports:
       - "8000:8000"
 
