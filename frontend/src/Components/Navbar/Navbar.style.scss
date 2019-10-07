@@ -1,0 +1,28 @@
+.Navbar {
+    background-color: var(--color-main-level1);
+    display: flex;
+    padding: 10px;
+    align-items: center;
+
+    .Search {
+        margin: 0 auto;
+        height: 45px;
+
+        input,
+        button {
+            height: 100%;
+        }
+
+        input {
+            width: 690px;
+        }
+
+        button {
+            width: 45px;
+        }
+    }
+
+    img {
+        height: 54px;
+    }
+}

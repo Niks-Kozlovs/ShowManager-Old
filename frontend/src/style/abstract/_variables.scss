@@ -3,5 +3,10 @@ $color-prefix: --color-;
 $colors: (
     test: (
         red: red
+    ),
+    main: (
+        background: #121224,
+        text: #fff,
+        level1: #242436
     )
 );
