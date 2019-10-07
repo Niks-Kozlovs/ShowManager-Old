@@ -1,3 +1,22 @@
 @import "./abstract/abstract";
 
 @import "./base/root";
+
+* {
+    box-sizing: border-box;
+}
+
+input,
+button {
+    border: none;
+
+    &:focus, &:active {
+        outline: none;
+    }
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-main-background);
+    color: var(--color-main-text);
+}

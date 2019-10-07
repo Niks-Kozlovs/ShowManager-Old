@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "class-name-format": 0,
+  	"property-sort-order": 0,
+  	"leading-zero": [1, {
+  	  "include": false
+  	}],
+    "no-empty-rulesets": 0,
+    "indentation": [
+      2,
+      {
+        "size": 4
+      }
+    ],
+    "mixins-before-declarations": 0,
+    "no-css-comments": 0,
+    "nesting-depth": 0
+  }
+}
