@@ -1,0 +1,25 @@
+.Login {
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+
+        & > * {
+            fill: var(--color-main-accent);
+            color: var(--color-main-accent);
+        }
+    }
+
+    p {
+        color: var(--color-main-text);
+        font-size: 20px;
+        text-transform: uppercase;
+    }
+
+    svg {
+        fill: #fff;
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+    }
+}

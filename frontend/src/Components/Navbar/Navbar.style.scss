@@ -1,0 +1,49 @@
+.Navbar {
+    background-color: var(--color-main-level1);
+    display: flex;
+    padding: 10px;
+    padding-right: 30px;
+    align-items: center;
+
+    .Search {
+        margin: 0 auto;
+        height: 45px;
+        display: flex;
+
+        input,
+        button {
+            height: 100%;
+        }
+
+        input {
+            border-radius: 5px 0 0 5px;
+            width: 690px;
+            padding-left: 15px;
+        }
+
+        button {
+            border-radius: 0 5px 5px 0;
+            background-color: var(--color-main-accent);
+            width: 45px;
+
+            &:hover {
+                background-color: var(--color-main-accent-dark);
+                cursor: pointer;
+            }
+
+            img {
+                padding: 5px;
+                max-width: 80%;
+                max-height: 80%;
+            }
+        }
+    }
+
+    .Login {
+        display: flex;
+    }
+
+    img {
+        height: 54px;
+    }
+}
