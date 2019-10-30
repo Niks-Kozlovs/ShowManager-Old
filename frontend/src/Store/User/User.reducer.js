@@ -2,12 +2,12 @@ import {
     UPDATE_USER_INFO
 } from './User.action';
 
-const updateInfo = (action) => {
-    return action;
-};
+const updateInfo = (action) => action;
 
 const initialState = {
-    user: { }
+    user: {
+        name: ''
+    }
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -15,6 +15,14 @@ const UserReducer = (state = initialState, action) => {
 
     switch (type) {
     case UPDATE_USER_INFO:
+        const { user } = action;
+        if (Object.keys(user).length === 0) {
+            return {
+                ...state,
+                ...updateInfo(initialState)
+            };
+        }
+
         return {
             ...state,
             ...updateInfo(action)

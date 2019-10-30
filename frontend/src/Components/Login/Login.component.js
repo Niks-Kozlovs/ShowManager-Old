@@ -15,8 +15,25 @@ class Login extends Component {
             username: '',
             password: '',
             repeatPassword: '',
-            email: ''
+            email: '',
+            loggedIn: false
         };
+    }
+
+    setLoggedIn() {
+        const { user: { name } } = this.props;
+
+        if (name === '') {
+            this.setState({
+                loggedIn: false
+            });
+            return;
+        }
+
+        this.setState({
+            loggedIn: true,
+            password: ''
+        });
     }
 
     register() {
@@ -63,6 +80,7 @@ class Login extends Component {
                   expires_in
                   token_type
                   user {
+                    name
                     email
                     name
                   }
@@ -78,8 +96,8 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
-                // updateUserInfo(res.data);
+                // console.log(res);
+                updateUserInfo(res.data);
             });
     }
 
@@ -118,6 +136,7 @@ class Login extends Component {
             .then((res) => res.json())
             .then((res) => {
                 updateUserInfo(res.data);
+                this.setLoggedIn();
             });
     }
 
@@ -223,25 +242,38 @@ class Login extends Component {
 
         return (
             <>
-            <p>{ accountText }</p>
-            <button
-              onClick={ () => this.register() }
-            >
-              { buttonText }
-            </button>
+                <p>{ accountText }</p>
+                <button
+                  onClick={ () => this.register() }
+                >
+                { buttonText }
+                </button>
+            </>
+        );
+    }
+
+    checkCookie() {
+        console.log('Cookies: ', document.cookie);
+    }
+
+    renderName(name) {
+        return (
+            <>
+            <button onClick={ () => this.checkCookie() }>Check cookie</button>
+            <p>{ name }</p>
             </>
         );
     }
 
     render() {
-        const { showPopUp, register } = this.state;
-
+        const { showPopUp, register, loggedIn } = this.state;
+        const { user: { name } } = this.props;
 
         return (
             <>
-                { this.renderLoginButton() }
+                { loggedIn ? this.renderName(name) : this.renderLoginButton() }
                 <Popup
-                  open={ showPopUp }
+                  open={ showPopUp && name === '' }
                   onClose={ () => this.popUp() }
                 >
                     { register ? this.renderRegisterForm() : this.renderLoginForm() }
@@ -253,7 +285,10 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    updateUserInfo: PropTypes.func.isRequired
+    updateUserInfo: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+        name: PropTypes.string
+    }).isRequired
 };
 
 export default Login;
