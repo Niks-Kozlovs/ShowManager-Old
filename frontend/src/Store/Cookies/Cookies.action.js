@@ -6,9 +6,9 @@ const updateToken = (token) => ({
     token
 });
 
-const cookiesLogIn = (data) => ({
+const cookiesLogIn = (token) => ({
     type: COOKIES_LOG_IN,
-    data
+    token
 });
 
 export {

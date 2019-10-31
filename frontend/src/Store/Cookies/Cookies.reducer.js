@@ -8,10 +8,7 @@ import {
 const updateUserToken = (action) => {
     const { token } = action;
     const { access_token, expires_in, refresh_token } = token;
-    console.log('ACC: ', access_token);
-    console.log('REF: ', refresh_token);
-    Cookies.set('tokens', { access_token, refresh_token }, { expires: expires_in });
-    console.log(JSON.parse(Cookies.get('tokens')));
+    Cookies.set('tokens', { access_token, refresh_token }, { expires: expires_in, sameSite: 'strict', secure: true });
     return action;
 };
 
@@ -35,7 +32,6 @@ const CookiesReducer = (state = initialState, action) => {
         };
 
     case COOKIES_LOG_IN:
-        console.log('Cookies log in: ', action);
         return state;
 
     default:

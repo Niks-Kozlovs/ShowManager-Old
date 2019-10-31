@@ -15,23 +15,12 @@ class Login extends Component {
             username: '',
             password: '',
             repeatPassword: '',
-            email: '',
-            loggedIn: false
+            email: ''
         };
     }
 
     setLoggedIn() {
-        const { user: { name } } = this.props;
-
-        if (name === '') {
-            this.setState({
-                loggedIn: false
-            });
-            return;
-        }
-
         this.setState({
-            loggedIn: true,
             password: ''
         });
     }
@@ -136,7 +125,6 @@ class Login extends Component {
             .then((res) => res.json())
             .then((res) => {
                 updateUserInfo(res.data);
-                this.setLoggedIn();
             });
     }
 
@@ -252,22 +240,17 @@ class Login extends Component {
         );
     }
 
-    checkCookie() {
-        console.log('Cookies: ', document.cookie);
-    }
-
     renderName(name) {
         return (
             <>
-            <button onClick={ () => this.checkCookie() }>Check cookie</button>
-            <p>{ name }</p>
+                <p>{ name }</p>
             </>
         );
     }
 
     render() {
-        const { showPopUp, register, loggedIn } = this.state;
-        const { user: { name } } = this.props;
+        const { showPopUp, register } = this.state;
+        const { user: { name, loggedIn } } = this.props;
 
         return (
             <>
@@ -287,7 +270,8 @@ class Login extends Component {
 Login.propTypes = {
     updateUserInfo: PropTypes.func.isRequired,
     user: PropTypes.shape({
-        name: PropTypes.string
+        name: PropTypes.string,
+        loggedIn: PropTypes.bool
     }).isRequired
 };
 
