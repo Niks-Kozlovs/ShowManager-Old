@@ -25,8 +25,6 @@ class CookiesDispatcher {
             dispatch(updateInfo(user));
         });
 
-        // console.log(user);
-
         dispatch(cookiesLogIn(cookies));
     }
 
