@@ -47,6 +47,7 @@
     "react/button-has-type": 0,
     "react/jsx-indent": 0,
     "react/jsx-indent-props": 2,
+    "linebreak-style": ["error", "windows"],
     "indent": [
       "error",
       4,

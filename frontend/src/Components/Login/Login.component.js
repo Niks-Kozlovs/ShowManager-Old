@@ -19,6 +19,12 @@ class Login extends Component {
         };
     }
 
+    setLoggedIn() {
+        this.setState({
+            password: ''
+        });
+    }
+
     register() {
         const { register } = this.state;
 
@@ -63,6 +69,7 @@ class Login extends Component {
                   expires_in
                   token_type
                   user {
+                    name
                     email
                     name
                   }
@@ -78,8 +85,7 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
-                // updateUserInfo(res.data);
+                updateUserInfo(res.data);
             });
     }
 
@@ -223,25 +229,33 @@ class Login extends Component {
 
         return (
             <>
-            <p>{ accountText }</p>
-            <button
-              onClick={ () => this.register() }
-            >
-              { buttonText }
-            </button>
+                <p>{ accountText }</p>
+                <button
+                  onClick={ () => this.register() }
+                >
+                { buttonText }
+                </button>
+            </>
+        );
+    }
+
+    renderName(name) {
+        return (
+            <>
+                <p>{ name }</p>
             </>
         );
     }
 
     render() {
         const { showPopUp, register } = this.state;
-
+        const { user: { name, loggedIn } } = this.props;
 
         return (
             <>
-                { this.renderLoginButton() }
+                { loggedIn ? this.renderName(name) : this.renderLoginButton() }
                 <Popup
-                  open={ showPopUp }
+                  open={ showPopUp && name === '' }
                   onClose={ () => this.popUp() }
                 >
                     { register ? this.renderRegisterForm() : this.renderLoginForm() }
@@ -253,7 +267,11 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    updateUserInfo: PropTypes.func.isRequired
+    updateUserInfo: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+        name: PropTypes.string,
+        loggedIn: PropTypes.bool
+    }).isRequired
 };
 
 export default Login;

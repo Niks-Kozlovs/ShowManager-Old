@@ -3,9 +3,11 @@ import {
 } from 'redux';
 
 import { UserReducer } from 'Store/User';
+import { CookiesReducer } from 'Store/Cookies';
 
 const reducers = {
-    UserReducer
+    UserReducer,
+    CookiesReducer
 };
 
 const store = createStore(

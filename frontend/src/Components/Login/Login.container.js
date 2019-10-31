@@ -3,7 +3,8 @@ import { UserDispatcher } from 'Store/User';
 import Login from './Login.component';
 
 const mapStateToProps = (state) => ({
-    user: state.UserReducer.user
+    user: state.UserReducer.user,
+    token: state.CookiesReducer.token
 });
 
 const mapDispatchToProps = (dispatch) => ({
