@@ -1,0 +1,22 @@
+.Popular {
+    width: 100%;
+    background-color: var(--color-main-level1);
+    padding: 30px;
+
+    p {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 23px;
+        color: var(--color-main-accent);
+
+    }
+
+    &-Cards {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-column-gap: 30px;
+        grid-row-gap: 26px;
+
+        margin-top: 20px;
+    }
+}

@@ -24,3 +24,10 @@ body {
     background-color: var(--color-main-background);
     color: var(--color-main-text);
 }
+
+.popup-content {
+    background-color: var(--color-main-level3) !important;
+    border: 0 !important;
+    width: initial !important;
+    padding: 10px !important;
+}
