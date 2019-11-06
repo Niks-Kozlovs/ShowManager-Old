@@ -8,6 +8,8 @@ class MovieCard extends Component {
     constructor(props) {
         super(props);
 
+        this.imageUrl = 'https://image.tmdb.org/t/p/w500';
+
         this.state = {
             isOpen: false
         };
@@ -17,34 +19,55 @@ class MovieCard extends Component {
         if (!status && e.target !== e.currentTarget) {
             return;
         }
-        console.log('Changing popup');
+
         this.setState(({ isOpen }) => ({
             isOpen: !isOpen
         }));
     }
 
-    render() {
-        const imageUrl = 'https://image.tmdb.org/t/p/w500';
+    keyPopUp(e) {
+        if (e.key === 'Enter') {
+            this.popUp(null, true);
+        }
+    }
+
+    renderPopupContent() {
         const { show } = this.props;
         const {
             backdrop_path,
             vote_average,
             vote_count,
             release_date,
-            overview,
-            poster_path
+            overview
         } = show;
+        return (
+            <div className="Content">
+                        <p>{ overview }</p>
+                        <img src={ this.imageUrl.concat(backdrop_path) } alt="Backdrop" />
+                        <p>{ vote_average }</p>
+                        <p>{ vote_count }</p>
+                        <p>{ release_date }</p>
+            </div>
+        );
+    }
+
+    render() {
+        const { show, show: { poster_path } } = this.props;
         const { isOpen } = this.state;
         const title = show.title || show.name;
         return (
             <div>
                 <button className="MovieCard" onClick={ () => this.popUp(null, true) }>
-                    <img src={ imageUrl.concat(poster_path) } alt={ title } />
+                    <img src={ this.imageUrl.concat(poster_path) } alt={ title } />
                 </button>
-                <div onClick={ (e) => this.popUp(e) } className={ `MovieCardPopup${ isOpen ? '-Open' : ''}` }>
-                    <div className="Content">
-                        <p>{ overview }</p>
-                    </div>
+                <div
+                  onKeyDown={ (e) => this.keyPopUp(e) }
+                  tabIndex={ 0 }
+                  role="button"
+                  onClick={ (e) => this.popUp(e) }
+                  className={ `MovieCardPopup${ isOpen ? '-Open' : ''}` }
+                >
+                    { this.renderPopupContent() }
                 </div>
             </div>
         );
