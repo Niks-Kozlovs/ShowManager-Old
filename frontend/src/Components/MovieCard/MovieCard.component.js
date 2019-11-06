@@ -5,6 +5,24 @@ import PropTypes from 'prop-types';
 import './MovieCard.style.scss';
 
 class MovieCard extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOpen: false
+        };
+    }
+
+    popUp(e, status) {
+        if (!status && e.target !== e.currentTarget) {
+            return;
+        }
+        console.log('Changing popup');
+        this.setState(({ isOpen }) => ({
+            isOpen: !isOpen
+        }));
+    }
+
     render() {
         const imageUrl = 'https://image.tmdb.org/t/p/w500';
         const { show } = this.props;
@@ -16,11 +34,19 @@ class MovieCard extends Component {
             overview,
             poster_path
         } = show;
+        const { isOpen } = this.state;
         const title = show.title || show.name;
         return (
-            <button className="MovieCard" onClick={ () => console.log('click') }>
-                <img src={ imageUrl.concat(poster_path) } alt={ title } />
-            </button>
+            <div>
+                <button className="MovieCard" onClick={ () => this.popUp(null, true) }>
+                    <img src={ imageUrl.concat(poster_path) } alt={ title } />
+                </button>
+                <div onClick={ (e) => this.popUp(e) } className={ `MovieCardPopup${ isOpen ? '-Open' : ''}` }>
+                    <div className="Content">
+                        <p>{ overview }</p>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
