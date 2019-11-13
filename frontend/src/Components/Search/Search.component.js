@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import SearchIcon from 'resources/Search.svg';
 
 import './Search.style.scss';
@@ -13,7 +15,6 @@ class Search extends Component {
 
     handleChange(result) {
         const { target: { value: searchText } } = result;
-        console.log(searchText);
         this.setState({
             searchText
         });
@@ -21,7 +22,9 @@ class Search extends Component {
 
     search() {
         const { searchText } = this.state;
-        console.log(searchText);
+        const { history } = this.props;
+
+        history.push(`/search/${ encodeURI(searchText)}`);
     }
 
     render() {
@@ -34,4 +37,8 @@ class Search extends Component {
     }
 }
 
-export default Search;
+Search.propTypes = {
+    history: PropTypes.shape().isRequired
+};
+
+export default withRouter(Search);

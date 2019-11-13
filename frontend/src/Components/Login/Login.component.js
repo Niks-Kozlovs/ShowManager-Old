@@ -241,9 +241,7 @@ class Login extends Component {
 
     renderName(name) {
         return (
-            <>
                 <p>{ name }</p>
-            </>
         );
     }
 
@@ -258,8 +256,10 @@ class Login extends Component {
                   open={ showPopUp && name === '' }
                   onClose={ () => this.popUp() }
                 >
-                    { register ? this.renderRegisterForm() : this.renderLoginForm() }
-                    { this.renderRegisterButton() }
+                    <>
+                        { register ? this.renderRegisterForm() : this.renderLoginForm() }
+                        { this.renderRegisterButton() }
+                    </>
                 </Popup>
             </>
         );
