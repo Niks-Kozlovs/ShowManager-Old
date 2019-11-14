@@ -55,6 +55,7 @@ class MovieCard extends Component {
         const { show, show: { poster_path } } = this.props;
         const { isOpen } = this.state;
         const title = show.title || show.name;
+
         return (
             <div>
                 <button className="MovieCard" onClick={ () => this.popUp(null, true) }>

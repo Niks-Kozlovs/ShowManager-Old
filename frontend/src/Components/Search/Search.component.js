@@ -13,12 +13,21 @@ class Search extends Component {
         };
     }
 
+    componentDidMount() {
+        const { match: { params: { term } } } = this.props;
+
+        this.setState({
+            searchText: term
+        });
+    }
+
     handleChange(result) {
         const { target: { value: searchText } } = result;
         this.setState({
             searchText
         });
     }
+
 
     search() {
         const { searchText } = this.state;
@@ -28,17 +37,25 @@ class Search extends Component {
     }
 
     render() {
+        const { searchText } = this.state;
+
         return (
-            <div className="Search">
-                <input onChange={ this.handleChange.bind(this) } type="text" placeholder="Search" />
+            <form className="Search">
+                <input
+                  value={ searchText }
+                  onChange={ this.handleChange.bind(this) }
+                  type="text"
+                  placeholder="Search"
+                />
                 <button type="submit" onClick={ () => this.search() }><img src={ SearchIcon } alt="Search" /></button>
-            </div>
+            </form>
         );
     }
 }
 
 Search.propTypes = {
-    history: PropTypes.shape().isRequired
+    history: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired
 };
 
 export default withRouter(Search);

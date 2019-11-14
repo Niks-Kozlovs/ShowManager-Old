@@ -11,11 +11,25 @@ class Search extends Component {
         this.state = {
             loading: true
         };
+    }
 
+    componentDidMount() {
         this.find();
     }
 
+    componentDidUpdate(prevProps) {
+        const { match: { params: { term: oldTerm } } } = prevProps;
+        const { match: { params: { term } } } = this.props;
+
+        if (term !== oldTerm) {
+            this.find();
+        }
+    }
+
     find() {
+        this.setState({
+            loading: true
+        });
         const { match: { params: { term } } } = this.props;
         const searchText = decodeURI(term);
 
