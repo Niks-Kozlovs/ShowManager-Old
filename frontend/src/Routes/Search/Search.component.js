@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from 'Components/Navbar';
-import MovieCard from 'Components/MovieCard';
+import MovieCard, { MOVIE_TYPE_LIST } from 'Components/MovieCard';
 import PropTypes from 'prop-types';
 import './Search.style.scss';
 
@@ -94,7 +94,7 @@ class Search extends Component {
 
         return (
             <div className="Popular-Cards">
-                    { shows.map((show) => <MovieCard show={ show } key={ show.id } />) }
+                    { shows.map((show) => <MovieCard show={ show } key={ show.id } type={ MOVIE_TYPE_LIST } />) }
             </div>
         );
     }

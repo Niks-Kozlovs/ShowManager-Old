@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import './MovieCard.style.scss';
+
+export const MOVIE_TYPE_CARD = 'Card';
+export const MOVIE_TYPE_LIST = 'List';
 
 class MovieCard extends Component {
     constructor(props) {
@@ -52,13 +54,13 @@ class MovieCard extends Component {
     }
 
     render() {
-        const { show, show: { poster_path } } = this.props;
+        const { show, show: { poster_path }, type } = this.props;
         const { isOpen } = this.state;
         const title = show.title || show.name;
 
         return (
             <div>
-                <button className="MovieCard" onClick={ () => this.popUp(null, true) }>
+                <button className={ 'Movie'.concat(type) } onClick={ () => this.popUp(null, true) }>
                     <img src={ this.imageUrl.concat(poster_path) } alt={ title } />
                 </button>
                 <div
@@ -76,7 +78,12 @@ class MovieCard extends Component {
 }
 
 MovieCard.propTypes = {
-    show: PropTypes.shape().isRequired
+    show: PropTypes.shape().isRequired,
+    type: PropTypes.string
+};
+
+MovieCard.defaultProps = {
+    type: 'Card'
 };
 
 export default MovieCard;
