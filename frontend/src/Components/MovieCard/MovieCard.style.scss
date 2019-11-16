@@ -1,30 +1,32 @@
-.MovieCard {
-    position: relative;
-    cursor: pointer;
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
+.Movie{
+    &Card {
+        position: relative;
+        cursor: pointer;
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
 
-    background: transparent;
+        background: transparent;
 
-    /* inherit font & color from ancestor */
-    color: inherit;
-    font: inherit;
+        /* inherit font & color from ancestor */
+        color: inherit;
+        font: inherit;
 
-    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
-    line-height: normal;
+        /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+        line-height: normal;
 
-    img {
-        width: 100%;
-        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+        img {
+            width: 100%;
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 
-        transition: transform .2s, box-shadow .2s;
+            transition: transform .2s, box-shadow .2s;
 
-        &:hover {
-                box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.30);
-                transform: scale(1.15);
+            &:hover {
+                    box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.30);
+                    transform: scale(1.15);
+            }
         }
     }
 

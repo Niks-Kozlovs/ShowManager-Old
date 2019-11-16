@@ -11,6 +11,12 @@ class MovieCard extends Component {
         super(props);
 
         this.imageUrl = 'https://image.tmdb.org/t/p/w500';
+        this.imageUrlSmall = 'https://image.tmdb.org/t/p/w92';
+
+        this.renderList = {
+            [MOVIE_TYPE_CARD]: this.renderCard(),
+            [MOVIE_TYPE_LIST]: this.renderList()
+        };
 
         this.state = {
             isOpen: false
@@ -53,22 +59,40 @@ class MovieCard extends Component {
         );
     }
 
-    render() {
-        const { show, show: { poster_path }, type } = this.props;
-        const { isOpen } = this.state;
+    renderList() {
+        const { show, show: { poster_path } } = this.props;
         const title = show.title || show.name;
+        return (
+            <div className="MovieList">
+                    <img src={ this.imageUrlSmall.concat(poster_path) } alt={ title } />
+                    <p>{ title }</p>
+            </div>
+        );
+    }
+
+    renderCard() {
+        const { show, show: { poster_path } } = this.props;
+        const title = show.title || show.name;
+        return (
+            <button className="MovieCard" onClick={ () => this.popUp(null, true) }>
+                    <img src={ this.imageUrl.concat(poster_path) } alt={ title } />
+            </button>
+        );
+    }
+
+    render() {
+        const { type } = this.props;
+        const { isOpen } = this.state;
 
         return (
-            <div>
-                <button className={ 'Movie'.concat(type) } onClick={ () => this.popUp(null, true) }>
-                    <img src={ this.imageUrl.concat(poster_path) } alt={ title } />
-                </button>
+            <div className="Movie">
+                { this.renderList[type] }
                 <div
                   onKeyDown={ (e) => this.keyPopUp(e) }
                   tabIndex={ 0 }
                   role="button"
                   onClick={ (e) => this.popUp(e) }
-                  className={ `MovieCardPopup${ isOpen ? '-Open' : ''}` }
+                  className={ `MoviePopup${ isOpen ? '-Open' : ''}` }
                 >
                     { this.renderPopupContent() }
                 </div>

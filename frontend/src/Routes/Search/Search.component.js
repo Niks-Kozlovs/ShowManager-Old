@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from 'Components/Navbar';
-import MovieCard, { MOVIE_TYPE_LIST } from 'Components/MovieCard';
+import MovieCard, { MOVIE_TYPE_LIST, MOVIE_TYPE_CARD } from 'Components/MovieCard';
 import PropTypes from 'prop-types';
 import './Search.style.scss';
 
@@ -9,6 +9,7 @@ class Search extends Component {
         super(props);
 
         this.state = {
+            type: MOVIE_TYPE_LIST,
             loading: true
         };
     }
@@ -92,9 +93,17 @@ class Search extends Component {
 
         const { shows } = searchResult;
 
+        const { type } = this.state;
+
         return (
-            <div className="Popular-Cards">
-                    { shows.map((show) => <MovieCard show={ show } key={ show.id } type={ MOVIE_TYPE_LIST } />) }
+            <div className="SearchRoute">
+                <div className="CardTypeSelector">
+                    <button onClick={ () => this.setState({ type: MOVIE_TYPE_CARD }) }>Card</button>
+                    <button onClick={ () => this.setState({ type: MOVIE_TYPE_LIST }) }>List</button>
+                </div>
+                <div className={ `SearchResult-${type}` }>
+                        { shows.map((show) => <MovieCard show={ show } key={ show.id } type={ type } />) }
+                </div>
             </div>
         );
     }
