@@ -66,6 +66,7 @@ class MovieCard extends Component {
             <div className="MovieList">
                     <img src={ this.imageUrlSmall.concat(poster_path) } alt={ title } />
                     <p>{ title }</p>
+                    <button className="DetailsButton" onClick={ () => this.popUp(null, true) }>Details</button>
             </div>
         );
     }

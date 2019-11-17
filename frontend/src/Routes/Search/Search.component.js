@@ -19,24 +19,39 @@ class Search extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { match: { params: { term: oldTerm } } } = prevProps;
-        const { match: { params: { term } } } = this.props;
+        const { match: { params: { term: oldTerm, page: oldPage } } } = prevProps;
+        const { match: { params: { term, page } } } = this.props;
 
-        if (term !== oldTerm) {
+        if (term !== oldTerm || oldPage !== page) {
             this.find();
         }
+    }
+
+    setPage(page) {
+        const { history } = this.props;
+        const { match: { params: { term } } } = this.props;
+
+        history.push(`/search/${decodeURI(term)}/${page}`);
+    }
+
+    getEndPage(total_pages, page) {
+        if (page < 5) {
+            return total_pages < 10 ? total_pages : 10;
+        }
+
+        return page + 5 < total_pages ? page + 5 : total_pages;
     }
 
     find() {
         this.setState({
             loading: true
         });
-        const { match: { params: { term } } } = this.props;
+        const { match: { params: { term, page } } } = this.props;
         const searchText = decodeURI(term);
 
         const query = encodeURI(`
         query {
-            searchShow(value: "${searchText}", page: 1, type: "All") {
+            searchShow(value: "${searchText}", page: ${page || 1}, type: "All") {
             total_pages
             shows {
                 id
@@ -78,6 +93,39 @@ class Search extends Component {
             });
     }
 
+    renderPages() {
+        const { loading } = this.state;
+
+        if (loading) {
+            return null;
+        }
+
+        const { searchResult: { total_pages } } = this.state;
+        const { match: { params: { page: pageString } } } = this.props;
+        const page = parseInt(pageString, 10) || 1;
+        const startPage = page - 5 >= 0 ? page - 5 : 1;
+        const endPage = this.getEndPage(total_pages, page);
+        const items = [];
+
+        for (let i = startPage; i <= endPage; i++) {
+            items.push(
+                <button
+                  className={ page === i ? 'Current' : '' }
+                  key={ i }
+                  onClick={ () => this.setPage(i) }
+                >
+                    { i }
+                </button>
+            );
+        }
+
+        return (
+            <div className="Search-Pages">
+                { items }
+            </div>
+        );
+    }
+
     renderMovies() {
         const { searchResult, loading } = this.state;
 
@@ -113,6 +161,7 @@ class Search extends Component {
             <>
                 <Navbar />
                 { this.renderMovies() }
+                { this.renderPages() }
 
             </>
         );
@@ -122,8 +171,12 @@ class Search extends Component {
 Search.propTypes = {
     match: PropTypes.shape({
         params: PropTypes.shape({
-            term: PropTypes.string
+            term: PropTypes.string,
+            page: PropTypes.string
         })
+    }).isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
     }).isRequired
 };
 

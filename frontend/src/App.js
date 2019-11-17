@@ -21,7 +21,7 @@ class App extends Component {
                 <Router history={ history }>
                     <Switch>
                         <Route exact path="/" component={ HomePage } />
-                        <Route path="/search/:term" component={ Search } />
+                        <Route path="/search/:term?/:page?" component={ Search } />
                     </Switch>
                 </Router>
             </Provider>
