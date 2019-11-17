@@ -239,11 +239,18 @@ class Login extends Component {
         );
     }
 
+    logout() {
+        console.log('Logged out');
+    }
+
     renderName(name) {
         return (
-            <>
-                <p>{ name }</p>
-            </>
+            <div className="isLoggedIn">
+                <p className="isLoggedIn-Name">{ name }</p>
+                <div className="isLoggedIn-DropDown">
+                    <button onCLick={ () => this.logout() }>Logout</button>
+                </div>
+            </div>
         );
     }
 
