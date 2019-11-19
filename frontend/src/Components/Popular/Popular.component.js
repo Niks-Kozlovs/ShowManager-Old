@@ -19,7 +19,7 @@ class Popular extends Component {
         const query = encodeURI(`
             query {
                 showsPopular {
-                      id
+                  id
                   video
                   vote_count
                   genre_ids
