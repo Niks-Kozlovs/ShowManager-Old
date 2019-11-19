@@ -40,8 +40,11 @@ class MovieCard extends Component {
     }
 
     addToWatchlist(id) {
-        const { addToWatchlist } = this.props;
-
+        const { addToWatchlist, user: { loggedIn } } = this.props;
+        if (!loggedIn) {
+            console.error('Must log in to add to watchlist');
+            return;
+        }
         addToWatchlist(id);
     }
 
@@ -68,6 +71,7 @@ class MovieCard extends Component {
     renderList() {
         const { show, show: { poster_path, id } } = this.props;
         const title = show.title || show.name;
+
         return (
             <div className="MovieList">
                     <img src={ this.imageUrlSmall.concat(poster_path) } alt={ title } />
@@ -112,7 +116,11 @@ class MovieCard extends Component {
 MovieCard.propTypes = {
     show: PropTypes.shape().isRequired,
     type: PropTypes.string,
-    addToWatchlist: PropTypes.func.isRequired
+    addToWatchlist: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+        name: PropTypes.string,
+        loggedIn: PropTypes.bool
+    }).isRequired
 };
 
 MovieCard.defaultProps = {
