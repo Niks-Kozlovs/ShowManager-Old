@@ -238,7 +238,9 @@ class Login extends Component {
     }
 
     logout() {
-        console.log('Logged out');
+        const { logout } = this.props;
+
+        logout();
     }
 
     renderName() {
@@ -279,6 +281,7 @@ class Login extends Component {
 
 Login.propTypes = {
     updateUserInfo: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
     user: PropTypes.shape({
         name: PropTypes.string,
         loggedIn: PropTypes.bool

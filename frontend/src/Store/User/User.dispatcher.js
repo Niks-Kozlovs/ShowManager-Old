@@ -5,6 +5,7 @@ import {
 import {
     updateToken
 } from 'Store/Cookies';
+import Cookies from 'js-cookie';
 
 class UserDispatcher {
     updateUserInfo(dispatch, user) {
@@ -21,6 +22,11 @@ class UserDispatcher {
             access_token, expires_in, refresh_token, token_type
         }));
         dispatch(updateInfo(userLogin));
+    }
+
+    logout(dispatch) {
+        Cookies.remove('tokens');
+        dispatch(updateInfo({ logout: true }));
     }
 }
 

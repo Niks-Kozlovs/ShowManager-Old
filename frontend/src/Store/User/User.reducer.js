@@ -28,6 +28,14 @@ const UserReducer = (state = initialState, action) => {
             };
         }
 
+        const { logout } = user;
+        if (logout) {
+            return {
+                ...state,
+                ...initialState
+            };
+        }
+
         return {
             ...state,
             ...updateInfo(action, true)
