@@ -8,7 +8,7 @@ import {
 const updateUserToken = (action) => {
     const { token } = action;
     const { access_token, expires_in, refresh_token } = token;
-    Cookies.set('tokens', { access_token, refresh_token }, { expires: expires_in, sameSite: 'strict', secure: true });
+    Cookies.set('tokens', { access_token, refresh_token }, { expires: expires_in });
     return action;
 };
 

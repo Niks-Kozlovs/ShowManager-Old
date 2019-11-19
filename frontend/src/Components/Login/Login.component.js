@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
 
@@ -94,9 +95,6 @@ class Login extends Component {
         const { updateUserInfo } = this.props;
 
         const { username, password } = this.state;
-
-        // username: dariana69@example.org
-        // password: password
 
         const url = 'http://localhost:8000/graphql';
         const query = JSON.stringify({
@@ -239,9 +237,22 @@ class Login extends Component {
         );
     }
 
-    renderName(name) {
+    logout() {
+        console.log('Logged out');
+    }
+
+    renderName() {
+        const { user: { name } } = this.props;
         return (
-                <p>{ name }</p>
+            <div className="isLoggedIn">
+                <p className="isLoggedIn-Name">{ name }</p>
+                <div className="isLoggedIn-DropDown">
+                    <Link to="/watchlist">Watchlist</Link>
+                    <Link to="/wishlist">Wishlist</Link>
+                    <Link to="/profile">My profile</Link>
+                    <button onClick={ () => this.logout() }>Logout</button>
+                </div>
+            </div>
         );
     }
 
@@ -251,7 +262,7 @@ class Login extends Component {
 
         return (
             <>
-                { loggedIn ? this.renderName(name) : this.renderLoginButton() }
+                { loggedIn ? this.renderName() : this.renderLoginButton() }
                 <Popup
                   open={ showPopUp && name === '' }
                   onClose={ () => this.popUp() }
