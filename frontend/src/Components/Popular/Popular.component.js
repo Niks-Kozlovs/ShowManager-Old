@@ -18,7 +18,7 @@ class Popular extends Component {
     getMovies() {
         const query = encodeURI(`
             query {
-                moviesNew {
+                showsPopular {
                       id
                   video
                   vote_count
@@ -49,7 +49,7 @@ class Popular extends Component {
         })
             .then((res) => res.json())
             .then((res) => {
-                this.setState({ movies: res.data.moviesNew });
+                this.setState({ movies: res.data.showsPopular });
             });
     }
 

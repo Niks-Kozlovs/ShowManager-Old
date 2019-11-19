@@ -25,6 +25,35 @@
     }
 }
 
+.isLoggedIn {
+    &:hover &-DropDown {
+        display: flex;
+    }
+
+    &-DropDown {
+        background-color: var(--color-main-level3);
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        z-index: 1;
+
+        a, button {
+            padding: 10px 10px;
+            text-decoration: none;
+            cursor: pointer;
+            background-color: transparent;
+            font-size: 12px;
+            text-align: center;
+
+            color: var(--color-main-text);
+
+            &:hover {
+                background-color: var(--color-main-level4);
+            }
+        }
+    }
+}
+
 .popup-content {
     form {
         display: flex;
