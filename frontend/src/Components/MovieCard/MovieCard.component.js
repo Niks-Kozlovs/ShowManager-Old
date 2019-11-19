@@ -39,6 +39,12 @@ class MovieCard extends Component {
         }
     }
 
+    addToWatchlist(id) {
+        const { addToWatchlist } = this.props;
+
+        addToWatchlist(id);
+    }
+
     renderPopupContent() {
         const { show } = this.props;
         const {
@@ -60,13 +66,14 @@ class MovieCard extends Component {
     }
 
     renderList() {
-        const { show, show: { poster_path } } = this.props;
+        const { show, show: { poster_path, id } } = this.props;
         const title = show.title || show.name;
         return (
             <div className="MovieList">
                     <img src={ this.imageUrlSmall.concat(poster_path) } alt={ title } />
                     <p>{ title }</p>
                     <button className="DetailsButton" onClick={ () => this.popUp(null, true) }>Details</button>
+                    <button className="AddToWatchlist" onClick={ () => this.addToWatchlist(id) }>Add to watchlist</button>
             </div>
         );
     }
@@ -104,7 +111,8 @@ class MovieCard extends Component {
 
 MovieCard.propTypes = {
     show: PropTypes.shape().isRequired,
-    type: PropTypes.string
+    type: PropTypes.string,
+    addToWatchlist: PropTypes.func.isRequired
 };
 
 MovieCard.defaultProps = {
