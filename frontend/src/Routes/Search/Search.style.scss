@@ -1,0 +1,33 @@
+.SearchRoute {
+    .SearchResult {
+        &-Card {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                grid-column-gap: 30px;
+                grid-row-gap: 26px;
+
+                margin-top: 20px;
+        }
+
+        &-List {
+            width: 100%;
+            background-color: var(--color-main-level1);
+            color: #fff;
+
+            .MovieList {
+                display: flex;
+                width:100%;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.Search-Pages {
+    button {
+        background-color: red;
+    }
+    .Current {
+        font-weight: bold;
+    }
+}

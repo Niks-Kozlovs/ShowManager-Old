@@ -1,14 +1,22 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import './MovieCard.style.scss';
+
+export const MOVIE_TYPE_CARD = 'Card';
+export const MOVIE_TYPE_LIST = 'List';
 
 class MovieCard extends Component {
     constructor(props) {
         super(props);
 
         this.imageUrl = 'https://image.tmdb.org/t/p/w500';
+        this.imageUrlSmall = 'https://image.tmdb.org/t/p/w92';
+
+        this.renderList = {
+            [MOVIE_TYPE_CARD]: this.renderCard(),
+            [MOVIE_TYPE_LIST]: this.renderList()
+        };
 
         this.state = {
             isOpen: false
@@ -51,21 +59,41 @@ class MovieCard extends Component {
         );
     }
 
-    render() {
+    renderList() {
         const { show, show: { poster_path } } = this.props;
-        const { isOpen } = this.state;
         const title = show.title || show.name;
         return (
-            <div>
-                <button className="MovieCard" onClick={ () => this.popUp(null, true) }>
+            <div className="MovieList">
+                    <img src={ this.imageUrlSmall.concat(poster_path) } alt={ title } />
+                    <p>{ title }</p>
+                    <button className="DetailsButton" onClick={ () => this.popUp(null, true) }>Details</button>
+            </div>
+        );
+    }
+
+    renderCard() {
+        const { show, show: { poster_path } } = this.props;
+        const title = show.title || show.name;
+        return (
+            <button className="MovieCard" onClick={ () => this.popUp(null, true) }>
                     <img src={ this.imageUrl.concat(poster_path) } alt={ title } />
-                </button>
+            </button>
+        );
+    }
+
+    render() {
+        const { type } = this.props;
+        const { isOpen } = this.state;
+
+        return (
+            <div className="Movie">
+                { this.renderList[type] }
                 <div
                   onKeyDown={ (e) => this.keyPopUp(e) }
                   tabIndex={ 0 }
                   role="button"
                   onClick={ (e) => this.popUp(e) }
-                  className={ `MovieCardPopup${ isOpen ? '-Open' : ''}` }
+                  className={ `MoviePopup${ isOpen ? '-Open' : ''}` }
                 >
                     { this.renderPopupContent() }
                 </div>
@@ -75,7 +103,12 @@ class MovieCard extends Component {
 }
 
 MovieCard.propTypes = {
-    show: PropTypes.shape().isRequired
+    show: PropTypes.shape().isRequired,
+    type: PropTypes.string
+};
+
+MovieCard.defaultProps = {
+    type: 'Card'
 };
 
 export default MovieCard;
