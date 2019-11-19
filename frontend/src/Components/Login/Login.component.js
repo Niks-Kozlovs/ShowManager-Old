@@ -125,6 +125,12 @@ class Login extends Component {
             });
     }
 
+    logout() {
+        const { logout } = this.props;
+
+        logout();
+    }
+
     renderLoginButton() {
         return (
             <button
@@ -235,12 +241,6 @@ class Login extends Component {
                 </button>
             </>
         );
-    }
-
-    logout() {
-        const { logout } = this.props;
-
-        logout();
     }
 
     renderName() {

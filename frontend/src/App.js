@@ -3,6 +3,8 @@ import { Router, Switch, Route } from 'react-router-dom';
 import { CookiesDispatcher } from 'Store/Cookies';
 import HomePage from 'Routes/HomePage';
 import Search from 'Routes/Search';
+import Watchlist from 'Routes/Watchlist';
+
 import history from 'Util/History';
 import './style/main.scss';
 import { Provider } from 'react-redux';
@@ -22,6 +24,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={ HomePage } />
                         <Route path="/search/:term?/:page?" component={ Search } />
+                        <Route exact path="/watchlist" component={ Watchlist } />
                     </Switch>
                 </Router>
             </Provider>
