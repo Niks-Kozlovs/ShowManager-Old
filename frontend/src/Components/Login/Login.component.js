@@ -16,7 +16,8 @@ class Login extends Component {
             username: '',
             password: '',
             repeatPassword: '',
-            email: ''
+            email: '',
+            loading: false
         };
     }
 
@@ -57,6 +58,10 @@ class Login extends Component {
             repeatPassword
         } = this.state;
 
+        this.setState({
+            loading: true
+        });
+
         const url = 'http://localhost:8000/graphql';
         const query = JSON.stringify({
             query: `
@@ -86,6 +91,9 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((res) => {
+                this.setState({
+                    loading: false
+                });
                 updateUserInfo(res.data);
             });
     }
@@ -95,6 +103,10 @@ class Login extends Component {
         const { updateUserInfo } = this.props;
 
         const { username, password } = this.state;
+
+        this.setState({
+            loading: true
+        });
 
         const url = 'http://localhost:8000/graphql';
         const query = JSON.stringify({
@@ -121,8 +133,17 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((res) => {
+                this.setState({
+                    loading: false
+                });
                 updateUserInfo(res.data);
             });
+    }
+
+    logout() {
+        const { logout } = this.props;
+
+        logout();
     }
 
     renderLoginButton() {
@@ -237,12 +258,6 @@ class Login extends Component {
         );
     }
 
-    logout() {
-        const { logout } = this.props;
-
-        logout();
-    }
-
     renderName() {
         const { user: { name } } = this.props;
         return (
@@ -259,7 +274,7 @@ class Login extends Component {
     }
 
     render() {
-        const { showPopUp, register } = this.state;
+        const { showPopUp, register, loading } = this.state;
         const { user: { name, loggedIn } } = this.props;
 
         return (
@@ -270,6 +285,7 @@ class Login extends Component {
                   onClose={ () => this.popUp() }
                 >
                     <>
+                        { loading ? <div>Loading</div> : null }
                         { register ? this.renderRegisterForm() : this.renderLoginForm() }
                         { this.renderRegisterButton() }
                     </>

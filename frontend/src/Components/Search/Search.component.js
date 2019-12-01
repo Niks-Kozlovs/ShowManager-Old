@@ -42,7 +42,7 @@ class Search extends Component {
         return (
             <form className="Search">
                 <input
-                  value={ searchText }
+                  value={ searchText || '' }
                   onChange={ this.handleChange.bind(this) }
                   type="text"
                   placeholder="Search"
