@@ -22,7 +22,7 @@ const UserReducer = (state = initialState, action) => {
     switch (type) {
     case UPDATE_USER_INFO:
         const { user } = action;
-        if (Object.keys(user).length === 0) {
+        if (!user || Object.keys(user).length === 0) {
             return {
                 ...state
             };
